@@ -1,0 +1,640 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'app/css/home.css' %}" />
+{% endblock custom_css %}
+{% block title %}Home{% endblock title %}
+
+{% block carousel_div %}
+<!-- Start Carousel -->
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide carousel-fade"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+    </div>
+
+    <!-- Start Carousel Inner -->
+    <div class="carousel-inner">
+      <!-- Carousel Img 1 -->
+      <div class="carousel-item active" data-bs-interval="5000">
+        <div class="carousel-item-img">
+          <!-- <img src="{% static 'app/images/carousel/slide1.png' %}" class="d-block w-100" alt="..." /> -->
+          <video autoplay loop preload="" poster="{% static 'app/images/carousel/images/image1.webp' %}" muted width="100%">
+            <source src="{% static 'app/images/carousel/videos/video1.mp4' %}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- Carousel Img 2 -->
+      <div class="carousel-item" data-bs-interval="5000">
+        <div class="carousel-item-img">
+          <!-- <img src="{% static 'app/images/carousel/slide2.jpg' %}" class="d-block w-100" alt="..." /> -->
+          <video class="d-block w-100" autoplay loop preload="" poster="{% static 'app/images/carousel/images/image2.jpg' %}" muted width="100%">
+            <source src="{% static 'app/images/carousel/videos/video2.webm' %}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- Carousel Img 3 -->
+      <div class="carousel-item" data-bs-interval="5000">
+        <div class="carousel-item-img">
+          <!-- <img src="{% static 'app/images/carousel/slide3.jpg' %}" class="d-block w-100" alt="..." /> -->
+          <video class="d-block w-100" autoplay loop preload="" poster="{% static 'app/images/carousel/images/image3.jpg' %}" muted width="100%">
+            <source src="{% static 'app/images/carousel/videos/video3.webm' %}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <!-- End Carousel Inner -->
+
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <!-- End Carousel -->
+{% endblock carousel_div %}
+
+{% block main-content %}
+  <!-- Start Main Container -->
+  <div class="main-container">
+
+
+    <!-- Start First Section -->
+    <div class="first-section section">
+      <div class="product-list-title">
+        <h3>Оперативная память (RAM)</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox1" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(1, true)" onmouseout="pauseScroll(1, false)">
+        {% for b in ram %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5">{{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                 {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'ram' %}">Посмотреть все RAM &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End First Section -->
+
+
+    <!-- Start Second Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>Solid State Drive (SSD)</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox2" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(2, true)" onmouseout="pauseScroll(2, false)">
+        {% for b in solidstatedrive %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5"> {{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'solidstatedrive' %}">Посмотреть все SSD &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Second Section -->
+
+
+    <!-- Start Third Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>Motherboards</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox3" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(3, true)" onmouseout="pauseScroll(3, false)">
+        {% for b in motherboard %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5">{{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'motherboard' %}">Псмотреть все материнские платы &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Third Section -->
+
+
+    <!-- Start Fourth Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>Жесткий диск</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox4" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(4, true)" onmouseout="pauseScroll(4, false)">
+        {% for b in harddiskdrive %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5">{{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'harddiskdrive' %}">Посмотреть все жесткие диски &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Fourth Section -->
+
+
+    <!-- Start Fifth Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>Keyboards</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox5" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(5, true)" onmouseout="pauseScroll(5, false)">
+        {% for b in keyboard %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5">{{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'keyboard' %}">Посмотреть все клавиатуры &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Fifth Section -->
+
+
+    <!-- Start Sixth Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>PSU</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox6" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(6, true)" onmouseout="pauseScroll(6, false)">
+        {% for b in powersupplyunit %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5">{{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'psu' %}">Просмотреть все блоки питания &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Sixth Section -->
+
+    
+    <!-- Start Seventh Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>Корпуса</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox7" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(7, true)" onmouseout="pauseScroll(7, false)">
+        {% for b in cabinet %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5"> {{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                 {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'cabinet' %}">Посмотреть все корпуса &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Seventh Section -->
+
+
+    <!-- Start Eight Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>UPS</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox8" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(8, true)" onmouseout="pauseScroll(8, false)">
+        {% for b in ups %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5"> {{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'ups' %}">Посмотреть все UPS &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Eight Section -->
+
+
+    <!-- Start Nineth Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>Флешки</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox9" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(9, true)" onmouseout="pauseScroll(9, false)">
+        {% for b in pendrive %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5">{{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                 {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'pendrive' %}">Посмотреть все флешки &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Nineth Section -->
+
+
+    <!-- Start Tenth Section -->
+    <div class="second-section section">
+      <div class="product-list-title">
+        <h3>Mice</h3>
+
+        <div class="form-check form-switch">
+          <input id="scroll-checkbox10" class="form-check-input autoscroll-checkbox shadow-none" type="checkbox" checked>
+          <label class="form-check-label">Scroll</label>
+        </div>
+
+      </div>
+
+      <div class="product-list" onmouseover="pauseScroll(10, true)" onmouseout="pauseScroll(10, false)">
+        {% for b in mouse %}
+
+        <div class="product-card">
+          <a href="{% url 'product-detail' b.id %}" class="product-card-btn">
+            <div class="item">
+              <div class="item-img">
+                <img src="{{b.product_image.url}}" alt="" />
+              </div>
+              <div class="fw-bold title">
+                {{b.title}}
+              </div>
+              <div class="fs-5"> {{b.discounted_price}} сом</div>
+              <div class="fs-10 fw-light text-decoration-line-through">
+                 {{b.selling_price}} сом
+              </div>
+
+              <div class="btn-container">
+                <form action="/add-to-cart" class="d-inline-block">
+                  <input type="hidden" name="product_id" value="{{b.id}}" id="product_id">
+                  <button type="submit" href="{% url 'add-to-cart' %}" class="btn btn-primary shadow-none">
+                    <span>Добавить в корзину</span>&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- View All Link -->
+      <div class="view-all-link">
+        <a href="{% url 'mouse' %}">Посмотреть все мышки &nbsp;<i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <!-- End Tenth Section -->
+
+
+
+
+  </div>
+  <!-- End Main Container -->
+{% endblock main-content %}
+
+{% block custom_js %}
+  <!-- Custom Slide Script -->
+  <script src="{% static 'app/js/homescript.js' %}"></script>
+{% endblock custom_js %}
