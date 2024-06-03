@@ -72,7 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ShopOnline.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = ['https://melsov.ru/, https://www.melsov.ru/']
+CSRF_TRUSTED_ORIGINS = ['https://marsnazar.ru/, https://www.marsnazar.ru/']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
