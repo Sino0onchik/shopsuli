@@ -72,6 +72,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ShopOnline.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = ['https://melsov.ru/, https://www.melsov.ru/']
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
