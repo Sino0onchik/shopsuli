@@ -9,4 +9,4 @@ services:
       - ./media:/app/media
     ports:
     - "8033:8033"
-    command: bash -c "python manage.py migrate && gunicorn cardealer.wsgi:application -w 4 -b 0.0.0.0:8033"
+    command: bash -c "python manage.py migrate && gunicorn ShopOnline.wsgi:application -w 4 -b 0.0.0.0:8033"
