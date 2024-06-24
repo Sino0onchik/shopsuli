@@ -7,7 +7,7 @@ from django.contrib.sitemaps.views import sitemap
 
 from .sitemaps import StaticViewSitemap, ProductSitemap
 from .forms import LoginForm, UserPasswordChangeForm, MyPasswordResetForm, MySetPasswordForm
-from .views import logout_view
+from .views import logout_view, ProductListApi
 
 sitemaps = {
     'static': StaticViewSitemap,
@@ -106,5 +106,7 @@ urlpatterns = [
         template_name='app/reset_password_confirm.html', form_class=MySetPasswordForm), name="password_reset_confirm"),
     path('resetpasswordsuccess', auth_views.PasswordResetCompleteView.as_view(
         template_name='app/reset_password_complete.html'), name="password_reset_complete"),
+
+    path('product-list-api/', ProductListApi.as_view())
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,6 +12,7 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, BadHeaderError
+from rest_framework.generics import ListAPIView
 
 import os
 from itertools import chain
@@ -22,6 +23,8 @@ from .forms import CustomerRegistrationForm, CustomerProfileForm, MyPasswordRese
 
 from .custom_logger import logger
 from .invoice import createInvoice
+from .serializers import ProductSerializer
+
 
 ########################### Helper Functions #######################
 
@@ -750,3 +753,10 @@ def search(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+class ProductListApi(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
